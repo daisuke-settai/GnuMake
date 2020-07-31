@@ -4,6 +4,8 @@ CPPFLAGS = -I include # 既存の設定を上書きしてる？ -> A.未定義�
 
 .PHONY : all
 all : count_words
+# .INTERMEDIATE : counter.o lexer.o count_words.o # OK! delete *.o
+# .INTERMEDIATE : *.o # BAD! makefile解釈時これらのファイルは存在しない
 
 # .o は .c から, 実行ファイルは.oから作られることは暗黙のルールである(サフィックス)
 # 下記のようなbuilt-inルールが存在
