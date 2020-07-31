@@ -14,14 +14,19 @@ define hello-from-macro
 endef
 
 .PHONY : all
-all : simple_var recursive_var macro
+all : simple_var recursive_var_update_var recursive_var macro
 
 .PHONY : simple_var recursive_var macro
 simple_var :
-	$(ECHO_SIMPLE) : "expect(APPEND)"
+	@$(ECHO_SIMPLE) : "expect(APPEND)"
 
 recursive_var :
-	$(ECHO_RECURSIVE) : "expect(hello)"
+	@$(ECHO_RECURSIVE) : "expect(hello)"
+
+# 特定のターゲット内でのみ有効な変数の定義
+recursive_var_update_var : HELLO += update
+recursive_var_update_var :
+	@$(ECHO_RECURSIVE) : "expect(hello update)"
 
 macro :
 	$(hello-from-macro)
