@@ -1,6 +1,6 @@
-local_dir  := app/player
-local_pgm  := $(local_dir)/play_mp3
-local_src  := $(addprefix $(local_dir)/,play_mp3.c)
+local_pgm  := $(subdirectory)/play_mp3
+# wildcatdでソースをひっかける方法はバージョン管理システムを使わない場合にはあまり適さない
+local_src  := $(addprefix $(subdirectory)/,$(wildcard *.c))
 local_objs := $(subst .c,.o,$(local_src))
 
 programs   += $(local_pgm)
