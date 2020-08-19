@@ -1,6 +1,7 @@
 # 再帰的make
 # 	大きなプロジェクトではコンポーネントごとにmakefileを用意し, top level makefileで
 # 	makeをする
+#   --keep-going(-k): makeに失敗しても他のmakeを実行
 lib_codec := lib/codec
 lib_db    := lib/db
 lib_ui 	  := lib/ui
@@ -11,8 +12,9 @@ player 	  := app/player
 all: $(player)
 
 $(player) $(libraries):
-	$(MAKE) --directory=$@
+	$(MAKE) --directory=$@ $(TARGET)
 
 # アプリとライブラリ間の依存関係
 $(player): $(libraries)
 $(lib_ui): $(lib_db) $(lib_codec)
+
