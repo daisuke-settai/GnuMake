@@ -17,10 +17,14 @@ ifdef COMSPEC
 else
 	OUTPUT_ROOT := $(HOME)
 	GCC_HOME := /usr/bin
+	PATH_SEPCHAR := /
 endif
 
 OUTPUT_DIR := $(OUTPUT_ROOT)/work/binaries
 CC := $(GCC_HOME)/gcc
+
+MACHINE := $(subst $(PATH_SEPCHAR),-,$(shell uname -smo | sed 's/ /-/g'))
+include $(MACHINE)-defineds.mk
 
 ifeq "$(MACHINE)" "hpux-hppa"
 	# build-inコンパイルルールではこれを使う
@@ -32,3 +36,20 @@ ifeq "$(MACHINE)" "solaris-sparc"
 	MV_FLAGS := -f
 endif
 $(warning $(MV))
+
+# 空白を含むファイル名の扱い
+space = $(empty) $(empty) # empty は未定義変数
+# $(call space-to-question,filename)
+space-to-question = $(subst $(space),?,$1) # ?は展開ワイルドカード文字
+
+# $(call wildcard-spaces,file-name)
+wildcard-spaces = $(wildcard $(call space-to-question,$1))
+
+# $(call file-exists,file-name)
+file-exists = $(strip \
+								$(if $1,,$(warning $1 has no value)) \
+									$(call wildcard-spaces,$1))
+
+$(warning $(call file-exists,space$(space)end.txt))
+
+# ポータビリティのため環境に応じたツールを使う場合は関数にまとめるのが良い. また内部にフックポイントをおくとなお良し
