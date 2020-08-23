@@ -1,3 +1,8 @@
+# :=　単純転換変数. 読み込まれた際に全て展開される
+#  =  再起展開変数. 参照ごとに評価される
+# ?=  条件付き代入. 変数が未定義の場合のみ代入
+# +=  アペンド. 変数にテキストを追加
+
 VPATH = src include
 CPPFLAGS = -I include
 
@@ -33,4 +38,5 @@ include $(subst .c,.d,$(SOURCES))
 .PHONY : clean
 clean :
 	rm -f *.o lexer.c count_words *.d
+
 

@@ -42,3 +42,20 @@ find-words:
 # $(strip text): text前後の空白を取り除き, 間のスペースを1つにする
 # $(origin variable): 変数の出自を返す. (undefined, default(組込のもの), environment,
 # 	environment override, file(makefileで定義), command line, override, automatic(makeの自動変数))
+#
+# override : 変数を優先して利用.
+# export : make から make を呼んだ場合に子makeで親makeの変数を参照できる(環境変数として)
+#   export [variables] において変数を指定しない場合全ての変数がexportされる.
+#   通常 shell では ‘-‘ を含んだ変数は使えないが, make間では export により受け渡し可能
+# unexport : 特定の環境変数を渡さない
+# 環境変数を使う場合は, 未設定の場合を考慮し ?= でデフォルトの値を設定する
+#
+# make の標準的な変数
+#   MAKE_VERSION
+#   CURDIR
+#   MAKEFILE_LIST : これの最後を見れば現在処理中の mekefile がわかる
+#   MAKECMDGOALS :
+#   	`make -f- FOO=bar -k goal <<< 'goal:;# $(MAKECMDGOALS)’` とするとMAKECMDGOALS には goal が入る
+#     ターゲットが特殊な場合に使う. clean 時には不要な処理を ifneq で飛ばす
+#		.VARIABLES : ここまで読み込まれた変数リスト
+

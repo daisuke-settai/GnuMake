@@ -42,9 +42,11 @@ objects      = $(call source-to-object,$(sources))
 # srcの拡張子は.c, .y, .lだが, objの拡張子は.oで統一されている
 dependencies = $(subst .o,.d,$(objects))
 
+$(warning CPPFLAGS1: $(CPPFLAGS))
 include_dirs := lib include
 CPPFLAGS     += $(addprefix -I ,$(include_dirs))
 vpath %.h $(include_dirs)
+$(warning CPPFLAGS2: $(CPPFLAGS))
 
 MV  := mv -f
 RM  := rm -f
@@ -53,6 +55,7 @@ SED := sed
 all:
 
 include $(addsuffix /module.mk,$(modules))
+$(warning CPPFLAGS3: $(CPPFLAGS))
 
 .PHONY: all
 all: $(programs)

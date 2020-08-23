@@ -4,6 +4,9 @@ vpath %.mk mk
 all:
 
 # includeターゲットが更新される場合, makeを初めからやり直す
+# 	共通定義をmakeヘッダに定義し読み込むような使い方もできる
+#		cwdになければ, --include-dir (-I) 指定の場所を探す. その後 make ビルド時に組み込まれたパスを見る
+#
 include foo.mk
 $(warning Finished include)
 

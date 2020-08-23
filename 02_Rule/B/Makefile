@@ -53,3 +53,12 @@ info :
 
 .PHONY : check
 check :
+
+# 標準擬似ターゲット
+#   all		アプリ構築の全てを実行
+#   install	コンパイル済みバイナリをインストール
+#   clean	ソースから生成されたバイナリを削除
+#   distclean	元の配布物に含まれていなかった全ての生成物を削除
+#   TAGS	エディタの使う tags を作成
+#   info		Texinfo のソースより GNU info ファイルを作成
+#   check	アプリに関連する全てのテストを実行

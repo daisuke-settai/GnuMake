@@ -1,5 +1,6 @@
-# VPATH = src # search pathにsrcを追加
-# vpath pattern dir-list
+# VPATH = src # search pathにsrcを追加. 当然一階層のみ
+# vpath pattern dir-list 当然一階層のみ
+# パターンルール : % は任意の文字. 任意の場所に配置可能だが, 1度のみ.
 vpath %.c src
 vpath %.l src
 vpath %.h include
